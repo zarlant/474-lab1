@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
 package lab1;
+
+import java.util.Scanner;
 
 /**
  *
@@ -18,6 +13,29 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        // TODO code application logic here
+        // Create a Scanner object
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Enter port to start server on: ");
+        int port = keyboard.nextInt();
+        ConnectionReceiver rec = new ConnectionReceiver();
+        rec.setPort(port);
+        rec.start();
+        //ConnectionReceiver.start(port);
+
+        System.out.println("Enter hostname to connect to server: ");
+        String host = keyboard.next();
+        System.out.println("Enter port to connect to server: ");
+        port = keyboard.nextInt();
+
+        Connection con = new Connection(host, port);
+        boolean connection = true;
+        String in = "";
+        keyboard.nextLine();
+        while (connection) {
+            System.out.print("Input: ");
+            in = keyboard.nextLine();
+            connection = con.callFunction(in);
+        }
+        System.exit(0);
     }
 }
